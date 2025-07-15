@@ -9,5 +9,13 @@ public class LoginRequest {
         this.passwordHash = passwordHash;
     }
 
-    // Getter & Setter (tùy IDE)
+    public LoginRequest() {} // constructor rỗng
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 }
