@@ -1,17 +1,17 @@
-package com.example.quizbin1.data.model;
+package com.example.quizbin1.data.model.dto;
 
 import java.util.UUID;
 
-public class Option {
+public class OptionDTO {
     private UUID optionId;
     private UUID questionId;
     private String content;
     private boolean isCorrect;
 
-    public Option() {
+    public OptionDTO() {
     }
 
-    public Option(UUID optionId, UUID questionId, String content, boolean isCorrect) {
+    public OptionDTO(UUID optionId, UUID questionId, String content, boolean isCorrect) {
         this.optionId = optionId;
         this.questionId = questionId;
         this.content = content;
