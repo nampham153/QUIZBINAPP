@@ -6,6 +6,8 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.*;
 import com.example.quizbin1.repository.UserRepository;
 
+import java.util.UUID;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,8 +31,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(v -> {
             String username = edtUsername.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
-
-            RegisterRequest request = new RegisterRequest(username, password, 2); // RoleId = 2
+            UUID subjectId = UUID.fromString("11111111-1111-1111-1111-111111111111"); // đảm bảo chuỗi đúng định dạng UUID
+            RegisterRequest request = new RegisterRequest("nam@gmail.com", "123456", subjectId);
+ // RoleId = 2
             userRepo.register(request).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
