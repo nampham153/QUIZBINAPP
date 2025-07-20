@@ -49,11 +49,23 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
-                        // ✅ Lấy userId dạng chuỗi UUID và truyền qua Intent
                         String userId = response.body().getUserId().toString();
+                        UUID roleId = response.body().getRoleId();
+
+                        // Thay bằng UUID đúng của role sinh viên và giáo viên
+                        UUID STUDENT_ROLE_ID = UUID.fromString("28481261-DD77-4108-8817-4812CC951E93");
+                        UUID TEACHER_ROLE_ID = UUID.fromString("025449DC-4C28-4886-EB96-08DDBEA2650D");
+
+                        String role = "unknown";
+                        if (roleId.equals(STUDENT_ROLE_ID)) {
+                            role = "student";
+                        } else if (roleId.equals(TEACHER_ROLE_ID)) {
+                            role = "teacher";
+                        }
 
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("userId", userId);
+                        intent.putExtra("role", role);
                         startActivity(intent);
                         finish(); // Không quay lại LoginActivity
                     } else {
@@ -67,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
         btnToRegister.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
