@@ -31,7 +31,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // ✅ Bật cả viewBinding và dataBinding
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -51,4 +50,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.1")
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.1")
+
+    // ✅ Bổ sung thư viện CardView để dùng cardElevation
+    implementation("androidx.cardview:cardview:1.0.0")
 }

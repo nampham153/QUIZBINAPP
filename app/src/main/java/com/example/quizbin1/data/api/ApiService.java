@@ -22,5 +22,7 @@ public interface ApiService {
     Call<List<SubjectDTO>> getSubjectsByUser(@Path("userId") String userId);
     @GET("api/Subject")
     Call<List<SubjectDTO>> getAllSubjects();
+    @GET("api/Semester")
+    Call<List<SemesterDTO>> getAllSemesters();
 
 }

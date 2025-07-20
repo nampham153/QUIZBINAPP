@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private List<SubjectDTO> subjectList = new ArrayList<>();
     private ApiService apiService;
     private String userIdString;
-    private String role; // thêm biến lưu role
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,9 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerSubjects);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SubjectAdapter(this, subjectList);
+        adapter = new SubjectAdapter();
+        adapter.setContext(this); // ✅ truyền context vào adapter
+        adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -61,14 +63,11 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(Call<List<SubjectDTO>> call, Response<List<SubjectDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<SubjectDTO> allSubjects = response.body();
-
                     subjectList.clear();
 
                     if ("student".equalsIgnoreCase(role)) {
-                        // Sinh viên xem tất cả môn học
                         subjectList.addAll(allSubjects);
                     } else if ("teacher".equalsIgnoreCase(role)) {
-                        // Giáo viên chỉ xem môn học do họ tạo
                         UUID userId = UUID.fromString(userIdString);
                         for (SubjectDTO subject : allSubjects) {
                             if (subject.getUserId() != null && subject.getUserId().equals(userId)) {
@@ -76,7 +75,6 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         }
                     } else {
-                        // Role khác hoặc không xác định, bạn có thể tùy chỉnh
                         subjectList.addAll(allSubjects);
                     }
 
