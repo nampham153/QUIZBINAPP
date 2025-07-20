@@ -1,3 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">QUIZBIN1</string>
+    <string name="app_name">QuizBin</string>
+    <string name="terms_text">
+Chào mừng bạn đến với ứng dụng QuizBin!\n
+\n
+Vui lòng đọc kỹ các điều khoản và điều kiện sau trước khi sử dụng dịch vụ của chúng tôi. Việc bạn tiếp tục sử dụng ứng dụng đồng nghĩa với việc bạn đồng ý và chấp nhận các điều khoản này.\n
+\n
+1. Quyền và nghĩa vụ người dùng\n
+- Người dùng cam kết cung cấp thông tin chính xác và đầy đủ khi đăng ký tài khoản.\n
+- Người dùng chịu trách nhiệm bảo mật thông tin tài khoản, không chia sẻ mật khẩu cho người khác.\n
+- Người dùng không được phép sử dụng ứng dụng vào mục đích bất hợp pháp hoặc gây hại đến người khác.\n
+\n
+2. Quyền sở hữu trí tuệ\n
+- Tất cả nội dung, hình ảnh, video và tài liệu trên ứng dụng đều thuộc quyền sở hữu của QuizBin hoặc các đối tác được ủy quyền.\n
+- Người dùng không được sao chép, phát tán hoặc sử dụng nội dung mà không được sự cho phép bằng văn bản của QuizBin.\n
+\n
+3. Chính sách bảo mật\n
+- Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn theo đúng quy định pháp luật.\n
+- QuizBin chỉ sử dụng dữ liệu của bạn để cải thiện trải nghiệm và không chia sẻ cho bên thứ ba nếu không có sự đồng ý.\n
+\n
+4. Giới hạn trách nhiệm\n
+- QuizBin không chịu trách nhiệm về bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng ứng dụng.\n
+- Ứng dụng có thể thay đổi hoặc ngưng cung cấp dịch vụ bất cứ lúc nào mà không cần báo trước.\n
+\n
+5. Sửa đổi điều khoản\n
+- QuizBin có quyền cập nhật các điều khoản này theo thời gian.\n
+- Mỗi khi có thay đổi quan trọng, chúng tôi sẽ thông báo trên ứng dụng để người dùng biết.\n
+\n
+Nếu bạn có bất kỳ câu hỏi nào về điều khoản sử dụng, vui lòng liên hệ với chúng tôi qua email support@quizbin.com.\n
+\n
+Cảm ơn bạn đã sử dụng QuizBin!
+</string>
+
 </resources>
