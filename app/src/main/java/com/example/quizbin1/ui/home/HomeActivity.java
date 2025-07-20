@@ -1,6 +1,5 @@
 package com.example.quizbin1.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,56 +25,62 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SubjectAdapter adapter;
-    private List<SubjectDTO> subjectList = new ArrayList<>(); // ✅ Khởi tạo list ở đây
+    private List<SubjectDTO> subjectList = new ArrayList<>();
     private ApiService apiService;
     private String userIdString;
+    private String role; // thêm biến lưu role
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // ✅ Lấy userId từ Intent
         userIdString = getIntent().getStringExtra("userId");
-        if (userIdString == null) {
-            Toast.makeText(this, "Không tìm thấy userId!", Toast.LENGTH_SHORT).show();
+        role = getIntent().getStringExtra("role");
+
+        if (userIdString == null || role == null) {
+            Toast.makeText(this, "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // ✅ Ánh xạ RecyclerView và cài LayoutManager
-        recyclerView = findViewById(R.id.recyclerSubjects); // ID trong XML phải đúng
+        recyclerView = findViewById(R.id.recyclerSubjects);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // ✅ Khởi tạo adapter với danh sách rỗng và gắn vào RecyclerView
         adapter = new SubjectAdapter(this, subjectList);
         recyclerView.setAdapter(adapter);
 
-        // ✅ Khởi tạo Retrofit API service
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        // ✅ Gọi API để tải danh sách môn học
-        loadSubjects();
+        loadSubjects(role);
     }
 
-    private void loadSubjects() {
+    private void loadSubjects(String role) {
         Call<List<SubjectDTO>> call = apiService.getAllSubjects();
         call.enqueue(new Callback<List<SubjectDTO>>() {
             @Override
             public void onResponse(Call<List<SubjectDTO>> call, Response<List<SubjectDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    UUID userId = UUID.fromString(userIdString);
                     List<SubjectDTO> allSubjects = response.body();
 
-                    subjectList.clear(); // Xoá danh sách cũ
+                    subjectList.clear();
 
-                    // ✅ Lọc các học phần theo userId
-                    for (SubjectDTO subject : allSubjects) {
-                        if (subject.getUserId() != null && subject.getUserId().equals(userId)) {
-                            subjectList.add(subject);
+                    if ("student".equalsIgnoreCase(role)) {
+                        // Sinh viên xem tất cả môn học
+                        subjectList.addAll(allSubjects);
+                    } else if ("teacher".equalsIgnoreCase(role)) {
+                        // Giáo viên chỉ xem môn học do họ tạo
+                        UUID userId = UUID.fromString(userIdString);
+                        for (SubjectDTO subject : allSubjects) {
+                            if (subject.getUserId() != null && subject.getUserId().equals(userId)) {
+                                subjectList.add(subject);
+                            }
                         }
+                    } else {
+                        // Role khác hoặc không xác định, bạn có thể tùy chỉnh
+                        subjectList.addAll(allSubjects);
                     }
 
-                    adapter.notifyDataSetChanged(); // Cập nhật giao diện
+                    adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {
                         Toast.makeText(HomeActivity.this, "Không có học phần nào!", Toast.LENGTH_SHORT).show();
