@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.quizbin1.R;
-import com.example.quizbin1.data.model.dto.*;
+import com.example.quizbin1.data.model.dto.LoginRequest;
+import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
+import com.example.quizbin1.ui.home.HomeActivity;
+
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,13 +37,25 @@ public class LoginActivity extends AppCompatActivity {
             String username = edtUsername.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
 
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập tài khoản và mật khẩu", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             LoginRequest request = new LoginRequest(username, password);
             userRepo.login(request).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        // TODO: chuyển sang màn hình chính
+
+                        // ✅ Lấy userId dạng chuỗi UUID và truyền qua Intent
+                        String userId = response.body().getUserId().toString();
+
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                        finish(); // Không quay lại LoginActivity
                     } else {
                         Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
@@ -47,11 +63,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this, "Lỗi mạng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
                 }
             });
         });
-
-        btnToRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+        btnToRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 }
