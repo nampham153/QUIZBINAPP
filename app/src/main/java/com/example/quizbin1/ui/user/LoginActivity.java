@@ -1,9 +1,12 @@
 package com.example.quizbin1.ui.user;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
@@ -24,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        boolean isDarkMode = sharedPreferences.getBoolean("dark_mode", false);
+        AppCompatDelegate.setDefaultNightMode(isDarkMode ?
+                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -66,8 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("userId", userId);
                         intent.putExtra("role", role);
+                        intent.putExtra("username", username);
                         startActivity(intent);
-                        finish(); // Không quay lại LoginActivity
+                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }

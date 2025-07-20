@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="textColorPrimary">#212121</color>
     <color name="nav_icon_color">#333333</color> <!-- màu icon/text menu dưới -->
-
+    <color name="purple_500">#6200EE</color>
 
 </resources>

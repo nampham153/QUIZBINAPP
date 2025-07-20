@@ -1,7 +1,9 @@
 package com.example.quizbin1.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
 import com.example.quizbin1.data.model.dto.SubjectDTO;
+import com.example.quizbin1.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +32,21 @@ public class HomeActivity extends AppCompatActivity {
     private ApiService apiService;
     private String userIdString;
     private String role;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        ImageView imgAvatar = findViewById(R.id.imgAvatar);
+        username = getIntent().getStringExtra("username");
+        imgAvatar.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            intent.putExtra("userId", userIdString);
+            intent.putExtra("role", role);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        });
         userIdString = getIntent().getStringExtra("userId");
         role = getIntent().getStringExtra("role");
 
