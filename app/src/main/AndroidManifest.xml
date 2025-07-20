@@ -19,6 +19,8 @@
         <activity android:name=".ui.settings.TermsActivity" />
         <activity android:name=".ui.settings.EditProfileActivity" />
         <activity android:name=".ui.settings.ChangePasswordActivity" />
+        <activity android:name=".ui.semester.SemesterActivity" />
+
 
 
         <activity

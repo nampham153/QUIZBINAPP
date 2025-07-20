@@ -33,5 +33,8 @@ public interface ApiService {
     Call<InformationDTO> updateInformation(@Path("id") UUID infoId, @Body UpdateInformationRequestDTO updateRequest);
     @PUT("api/User/change-password")
     Call<ResponseBody> changePassword(@Body ChangePasswordDTO request);
+    @GET("api/Semester")
+    Call<List<SemesterDTO>> getAllSemesters();
+
 
 }
