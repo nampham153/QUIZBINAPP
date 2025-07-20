@@ -1,8 +1,8 @@
-package com.example.quizbin1.data.model;
+package com.example.quizbin1.data.model.dto;
 
 import java.util.UUID;
 
-public class Subject {
+public class SubjectDTO {
     private UUID subjectId;
     private String subjectName;
     private String subjectDetail;
@@ -10,10 +10,10 @@ public class Subject {
     private String videoUrl;
     private UUID userId;
 
-    public Subject() {
+    public SubjectDTO() {
     }
 
-    public Subject(UUID subjectId, String subjectName, String subjectDetail, String urlImage, String videoUrl, UUID userId) {
+    public SubjectDTO(UUID subjectId, String subjectName, String subjectDetail, String urlImage, String videoUrl, UUID userId) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.subjectDetail = subjectDetail;

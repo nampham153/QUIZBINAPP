@@ -1,22 +1,15 @@
 package com.example.quizbin1;
+import com.example.quizbin1.data.model.dto.LoginResponse;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
-import com.example.quizbin1.data.model.User;
 import com.example.quizbin1.data.model.dto.LoginRequest;
-import com.example.quizbin1.data.model.dto.LoginResponse;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

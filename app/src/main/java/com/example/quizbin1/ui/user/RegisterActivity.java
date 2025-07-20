@@ -1,10 +1,15 @@
 package com.example.quizbin1.ui.user;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.*;
 import com.example.quizbin1.repository.UserRepository;
+import com.example.quizbin1.ui.user.LoginActivity;
+
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,7 +18,9 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText edtUsername, edtPassword;
+    EditText editTextRegisterConfirmPassword;
     Button btnRegister;
+    TextView textViewLogin;
     UserRepository userRepo;
 
     @Override
@@ -23,14 +30,31 @@ public class RegisterActivity extends AppCompatActivity {
 
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
+        editTextRegisterConfirmPassword = findViewById(R.id.editTextRegisterConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        textViewLogin = findViewById(R.id.textViewLogin);
         userRepo = new UserRepository();
+
+        // Bắt sự kiện click vào "Đăng nhập"
+        textViewLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         btnRegister.setOnClickListener(v -> {
             String username = edtUsername.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
+            String confirmPassword = editTextRegisterConfirmPassword.getText().toString().trim();
 
-            RegisterRequest request = new RegisterRequest(username, password, 2); // RoleId = 2
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            UUID subjectId = UUID.fromString("28481261-dd77-4108-8817-4812cc951e93"); // Giữ nguyên ID mẫu
+            RegisterRequest request = new RegisterRequest(username, password, subjectId);
+
             userRepo.register(request).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -50,4 +74,3 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 }
-

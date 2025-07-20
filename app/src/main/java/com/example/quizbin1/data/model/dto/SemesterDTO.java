@@ -1,16 +1,16 @@
-package com.example.quizbin1.data.model;
+package com.example.quizbin1.data.model.dto;
 
 import java.util.UUID;
 
-public class Semester {
+public class SemesterDTO {
     private UUID semesterId;
     private UUID subjectId;
     private String semesterName;
 
-    public Semester() {
+    public SemesterDTO() {
     }
 
-    public Semester(UUID semesterId, UUID subjectId, String semesterName) {
+    public SemesterDTO(UUID semesterId, UUID subjectId, String semesterName) {
         this.semesterId = semesterId;
         this.subjectId = subjectId;
         this.semesterName = semesterName;

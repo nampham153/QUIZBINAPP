@@ -1,9 +1,9 @@
-package com.example.quizbin1.data.model;
+package com.example.quizbin1.data.model.dto;
 
-import java.util.UUID;
 import java.util.Date;
+import java.util.UUID;
 
-public class Information {
+public class InformationDTO {
     private UUID infoId;
     private UUID userId;
     private String fullName;
@@ -12,10 +12,10 @@ public class Information {
     private Date dateOfBirth;
     private String urlImage;
 
-    public Information() {
+    public InformationDTO() {
     }
 
-    public Information(UUID infoId, UUID userId, String fullName, String email, String phone, Date dateOfBirth, String urlImage) {
+    public InformationDTO(UUID infoId, UUID userId, String fullName, String email, String phone, Date dateOfBirth, String urlImage) {
         this.infoId = infoId;
         this.userId = userId;
         this.fullName = fullName;

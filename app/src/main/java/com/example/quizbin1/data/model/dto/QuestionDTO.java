@@ -1,16 +1,16 @@
-package com.example.quizbin1.data.model;
+package com.example.quizbin1.data.model.dto;
 
 import java.util.UUID;
 
-public class Question {
+public class QuestionDTO {
     private UUID questionId;
     private UUID semesterId;
     private String content;
 
-    public Question() {
+    public QuestionDTO() {
     }
 
-    public Question(UUID questionId, UUID semesterId, String content) {
+    public QuestionDTO(UUID questionId, UUID semesterId, String content) {
         this.questionId = questionId;
         this.semesterId = semesterId;
         this.content = content;

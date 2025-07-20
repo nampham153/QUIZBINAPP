@@ -2,16 +2,16 @@ package com.example.quizbin1.data.model.dto;
 
 import java.util.UUID;
 
-public class LoginResponse {
+public class UserDTO {
     private UUID userId;
     private String username;
     private String passwordHash;
     private UUID roleId;
 
-    public LoginResponse() {
+    public UserDTO() {
     }
 
-    public LoginResponse(UUID userId, String username, String passwordHash, UUID roleId) {
+    public UserDTO(UUID userId, String username, String passwordHash, UUID roleId) {
         this.userId = userId;
         this.username = username;
         this.passwordHash = passwordHash;
