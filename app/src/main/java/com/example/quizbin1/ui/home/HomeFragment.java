@@ -3,10 +3,15 @@ package com.example.quizbin1.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,48 +29,69 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SubjectAdapter adapter;
     private List<SubjectDTO> subjectList = new ArrayList<>();
     private ApiService apiService;
+
     private String userIdString;
     private String role;
     private String username;
 
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    // Tạo factory method để truyền dữ liệu vào fragment
+    public static HomeFragment newInstance(String userId, String role, String username) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", userId);
+        args.putString("role", role);
+        args.putString("username", username);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ImageView imgAvatar = findViewById(R.id.imgAvatar);
-        username = getIntent().getStringExtra("username");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerSubjects);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new SubjectAdapter();
+        adapter.setContext(getContext());
+        adapter.setSubjectList(subjectList);
+        recyclerView.setAdapter(adapter);
+
+        ImageView imgAvatar = view.findViewById(R.id.imgAvatar);
         imgAvatar.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
             intent.putExtra("userId", userIdString);
             intent.putExtra("role", role);
             intent.putExtra("username", username);
             startActivity(intent);
         });
-        userIdString = getIntent().getStringExtra("userId");
-        role = getIntent().getStringExtra("role");
 
-        if (userIdString == null || role == null) {
-            Toast.makeText(this, "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
-            return;
+        if (getArguments() != null) {
+            userIdString = getArguments().getString("userId");
+            role = getArguments().getString("role");
+            username = getArguments().getString("username");
         }
 
-        recyclerView = findViewById(R.id.recyclerSubjects);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if (userIdString == null || role == null) {
+            Toast.makeText(getContext(), "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
+        } else {
+            apiService = ApiClient.getClient().create(ApiService.class);
+            loadSubjects(role);
+        }
 
-        adapter = new SubjectAdapter();
-        adapter.setContext(this); // ✅ truyền context vào adapter
-        adapter.setSubjectList(subjectList);
-        recyclerView.setAdapter(adapter);
-
-        apiService = ApiClient.getClient().create(ApiService.class);
-
-        loadSubjects(role);
+        return view;
     }
 
     private void loadSubjects(String role) {
@@ -93,16 +119,16 @@ public class HomeActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {
-                        Toast.makeText(HomeActivity.this, "Không có học phần nào!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Không có học phần nào!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(HomeActivity.this, "Lỗi khi lấy danh sách học phần", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Lỗi khi lấy danh sách học phần", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<SubjectDTO>> call, Throwable t) {
-                Toast.makeText(HomeActivity.this, "Lỗi kết nối máy chủ: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi kết nối máy chủ: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("API_ERROR", t.getMessage(), t);
             }
         });
