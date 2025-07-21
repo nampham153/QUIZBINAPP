@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quizbin1.ui.home.HomeActivity;
+import com.example.quizbin1.MainActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
@@ -59,8 +59,8 @@ public class SemesterActivity extends AppCompatActivity {
         btnBackToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SemesterActivity.this, HomeActivity.class); // đổi thành HomeActivity nếu cần
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent intent = new Intent(SemesterActivity.this, MainActivity.class); // đổi thành HomeActivity nếu cần
+                intent.putExtra("navigateTo", "home");
                 startActivity(intent);
                 finish();
             }
