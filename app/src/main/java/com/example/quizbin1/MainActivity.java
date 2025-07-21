@@ -1,70 +1,58 @@
 package com.example.quizbin1;
-import com.example.quizbin1.data.model.dto.LoginResponse;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.example.quizbin1.data.api.ApiClient;
-import com.example.quizbin1.data.api.ApiService;
-import com.example.quizbin1.data.model.dto.LoginRequest;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.quizbin1.ui.home.HomeFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private ApiService apiService;
-    private static final String TAG = "API_TEST";
+
+    private String userId = "sample-user-id";
+    private String role = "student";
+    private String username = "username123";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (getIntent() != null) {
+            userId = getIntent().getStringExtra("userId");
+            role = getIntent().getStringExtra("role");
+            username = getIntent().getStringExtra("username");
+        }
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment.newInstance(userId, role, username))
+                    .commit();
+        }
 
-        apiService = ApiClient.getClient().create(ApiService.class);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
 
-        // Test kết nối
-        testApiConnection();
-    }
-
-    private void testApiConnection() {
-        Log.d(TAG, "Bắt đầu test API connection...");
-
-        // Tạo dữ liệu login mẫu
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("nam1");  // Thay bằng dữ liệu phù hợp
-        loginRequest.setPasswordHash("123456");
-
-        Call<LoginResponse> call = apiService.login(loginRequest);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "✅ KẾT NỐI THÀNH CÔNG!");
-                    Log.d(TAG, "Response Code: " + response.code());
-                    Log.d(TAG, "Data: " + response.body().toString());
-
-                    runOnUiThread(() -> {
-                        Toast.makeText(MainActivity.this, "Kết nối API thành công!", Toast.LENGTH_LONG).show();
-                    });
-                } else {
-                    Log.e(TAG, "❌ LỖI RESPONSE: " + response.code());
-                    Log.e(TAG, "Error Body: " + response.errorBody().toString());
-                }
+            int id = item.getItemId();
+            if (id == R.id.nav_home) {
+                selectedFragment = HomeFragment.newInstance(userId, role, username);
+            } else if (id == R.id.nav_create) {
+                // Tạo fragment CreateFragment tương tự
+                selectedFragment = new com.example.quizbin1.ui.home.CreateFragment();
+            } else if (id == R.id.nav_library) {
+                selectedFragment = new com.example.quizbin1.ui.home.LibraryFragment();
+            } else if (id == R.id.nav_premium) {
+                selectedFragment = new com.example.quizbin1.ui.home.PremiumFragment();
             }
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e(TAG, "❌ KẾT NỐI THẤT BẠI: " + t.getMessage());
-                Log.e(TAG, "Error: ", t);
-
-                runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                });
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
             }
+
+            return true;
         });
     }
 }

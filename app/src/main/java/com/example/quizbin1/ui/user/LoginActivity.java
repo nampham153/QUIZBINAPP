@@ -7,11 +7,11 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.quizbin1.MainActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
-import com.example.quizbin1.ui.home.HomeActivity;
 
 import java.util.UUID;
 
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                             role = "teacher";
                         }
 
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);
                         intent.putExtra("role", role);
                         intent.putExtra("username", username);
