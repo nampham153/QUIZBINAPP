@@ -12,6 +12,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
+import com.example.quizbin1.utils.SharedPrefManager;
 
 import java.util.UUID;
 
@@ -53,13 +54,13 @@ public class LoginActivity extends AppCompatActivity {
             userRepo.login(request).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    // Trong onResponse khi login thành công
                     if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
                         String userId = response.body().getUserId().toString();
                         UUID roleId = response.body().getRoleId();
 
-                        // Thay bằng UUID đúng của role sinh viên và giáo viên
                         UUID STUDENT_ROLE_ID = UUID.fromString("28481261-DD77-4108-8817-4812CC951E93");
                         UUID TEACHER_ROLE_ID = UUID.fromString("025449DC-4C28-4886-EB96-08DDBEA2650D");
 
@@ -70,15 +71,17 @@ public class LoginActivity extends AppCompatActivity {
                             role = "teacher";
                         }
 
+                        // Lưu thông tin vào SharedPrefManager ngay sau login thành công
+                        SharedPrefManager.getInstance(LoginActivity.this).saveLoginInfo(userId, role, username);
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);
                         intent.putExtra("role", role);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
+
                 }
 
                 @Override

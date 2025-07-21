@@ -19,6 +19,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
 import com.example.quizbin1.data.model.dto.SubjectDTO;
+import com.example.quizbin1.ui.semester.SemesterActivity;
 import com.example.quizbin1.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
@@ -65,7 +66,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new SubjectAdapter();
-        adapter.setContext(getContext());
         adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
@@ -75,6 +75,12 @@ public class HomeFragment extends Fragment {
             intent.putExtra("userId", userIdString);
             intent.putExtra("role", role);
             intent.putExtra("username", username);
+            startActivity(intent);
+        });
+        adapter.setOnItemClickListener(subject -> {
+            // Ví dụ chuyển sang Activity Semester, truyền subjectId
+            Intent intent = new Intent(getContext(), SemesterActivity.class);
+            intent.putExtra("subjectId", subject.getSubjectId().toString());
             startActivity(intent);
         });
 
