@@ -1,13 +1,17 @@
 package com.example.quizbin1.ui.semester;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizbin1.ui.home.HomeActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
@@ -32,11 +36,11 @@ public class SemesterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
-        Toast.makeText(this, "Mở SemesterActivity", Toast.LENGTH_SHORT).show(); // kiểm tra activity chạy
+        Toast.makeText(this, "Mở SemesterActivity", Toast.LENGTH_SHORT).show();
 
         rvSemesters = findViewById(R.id.rvSemesters);
         rvSemesters.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SemesterAdapter();
+        adapter = new SemesterAdapter(this);
         rvSemesters.setAdapter(adapter);
 
         // Lấy subjectId từ intent
@@ -45,10 +49,22 @@ public class SemesterActivity extends AppCompatActivity {
 
         if (subjectId != null) {
             apiService = ApiClient.getClient().create(ApiService.class);
-            loadSemesters(subjectId); // gọi API thực
+            loadSemesters(subjectId);
         } else {
             Toast.makeText(this, "Không tìm thấy subjectId", Toast.LENGTH_SHORT).show();
         }
+
+        // Xử lý nút quay lại
+        Button btnBackToHome = findViewById(R.id.btnBackToHome);
+        btnBackToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SemesterActivity.this, HomeActivity.class); // đổi thành HomeActivity nếu cần
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loadSemesters(String subjectId) {

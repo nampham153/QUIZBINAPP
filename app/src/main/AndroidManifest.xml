@@ -20,8 +20,8 @@
         <activity android:name=".ui.settings.EditProfileActivity" />
         <activity android:name=".ui.settings.ChangePasswordActivity" />
         <activity android:name=".ui.semester.SemesterActivity" />
-
-
+        <activity android:name=".ui.quiz.QuizDoingActivity" />
+        <activity android:name=".ui.result.ResultActivity" />
 
         <activity
             android:name=".ui.user.LoginActivity"
