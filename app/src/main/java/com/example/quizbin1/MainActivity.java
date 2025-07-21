@@ -11,34 +11,31 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String userId = "sample-user-id";
-    private String role = "student";
-    private String username = "username123";
+    private String userId;
+    private String role ;
+    private String username ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Lấy dữ liệu intent
         if (getIntent() != null) {
             userId = getIntent().getStringExtra("userId");
             role = getIntent().getStringExtra("role");
             username = getIntent().getStringExtra("username");
         }
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment.newInstance(userId, role, username))
-                    .commit();
-        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+
+        // Listener cho BottomNavigationView
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
-
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 selectedFragment = HomeFragment.newInstance(userId, role, username);
             } else if (id == R.id.nav_create) {
-                // Tạo fragment CreateFragment tương tự
                 selectedFragment = new com.example.quizbin1.ui.home.CreateFragment();
             } else if (id == R.id.nav_library) {
                 selectedFragment = new com.example.quizbin1.ui.home.LibraryFragment();
@@ -51,8 +48,32 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container, selectedFragment)
                         .commit();
             }
-
             return true;
         });
+
+        if (savedInstanceState == null) {
+            String navigateTo = getIntent().getStringExtra("navigateTo");
+
+            // Nếu không có intent, mặc định vào Home
+            int defaultTabId = R.id.nav_home;
+
+            if (navigateTo != null) {
+                switch (navigateTo) {
+                    case "home":
+                        defaultTabId = R.id.nav_home;
+                        break;
+                    case "create":
+                        defaultTabId = R.id.nav_create;
+                        break;
+                    case "library":
+                        defaultTabId = R.id.nav_library;
+                        break;
+                    case "premium":
+                        defaultTabId = R.id.nav_premium;
+                        break;
+                }
+            }
+            bottomNav.setSelectedItemId(defaultTabId);
+        }
     }
 }
