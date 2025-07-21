@@ -35,6 +35,9 @@ public interface ApiService {
     Call<ResponseBody> changePassword(@Body ChangePasswordDTO request);
     @GET("api/Semester")
     Call<List<SemesterDTO>> getAllSemesters();
-
+    @GET("api/Question/semester/{semesterId}")
+    Call<List<QuestionDTO>> getQuestionsBySemesterId(@Path("semesterId") UUID semesterId);
+    @GET("api/Option/question/{questionId}")
+    Call<List<OptionDTO>> getOptionsByQuestionId(@Path("questionId") UUID questionId);
 
 }
