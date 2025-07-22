@@ -32,12 +32,25 @@ public class SemesterActivity extends AppCompatActivity {
     private ApiService apiService;
     private String subjectId;
 
+    private String userId, role, username;
+
     @Override
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
         Toast.makeText(this, "Mở SemesterActivity", Toast.LENGTH_SHORT).show();
+
+        // Lấy dữ liệu từ Intent
+        subjectId = getIntent().getStringExtra("subjectId");
+        userId = getIntent().getStringExtra("userId");
+        role = getIntent().getStringExtra("role");
+        username = getIntent().getStringExtra("username");
+
+        Log.d("SemesterActivity", "subjectId nhận được: " + subjectId);
 
         rvSemesters = findViewById(R.id.rvSemesters);
         rvSemesters.setLayoutManager(new LinearLayoutManager(this));
@@ -50,9 +63,9 @@ public class SemesterActivity extends AppCompatActivity {
 
         rvSemesters.setAdapter(adapter);
 
+
         subjectId = getIntent().getStringExtra("subjectId");
         Log.d("SemesterActivity", "subjectId nhận được: " + subjectId);
-
         if (subjectId != null) {
             apiService = ApiClient.getClient().create(ApiService.class);
             loadSemesters(subjectId);
@@ -61,16 +74,20 @@ public class SemesterActivity extends AppCompatActivity {
         }
 
         Button btnBackToHome = findViewById(R.id.btnBackToHome);
-        btnBackToHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SemesterActivity.this, MainActivity.class); // đổi thành HomeActivity nếu cần
-                intent.putExtra("navigateTo", "home");
-                startActivity(intent);
-                finish();
-            }
+        btnBackToHome.setOnClickListener(v -> {
+            Toast.makeText(this, "Quay lại trang chủ", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SemesterActivity.this, MainActivity.class);
+            intent.putExtra("userId", userId);
+            intent.putExtra("role", role);
+            intent.putExtra("username", username);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         });
     }
+
+
+
 
     private void loadSemesters(String subjectId) {
         apiService.getAllSemesters().enqueue(new Callback<List<SemesterDTO>>() {

@@ -51,5 +51,4 @@ public interface ApiService {
     Call<QuestionDTO> createQuestion(@Body AddQuestionRequestDTO request);
     @POST("api/Option")
     Call<OptionDTO> createOption(@Body AddOptionRequestDTO request);
-
 }

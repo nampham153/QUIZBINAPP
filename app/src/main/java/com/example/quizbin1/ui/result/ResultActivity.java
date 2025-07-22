@@ -1,7 +1,9 @@
 package com.example.quizbin1.ui.result;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.OptionDTO;
 import com.example.quizbin1.data.model.dto.QuestionDTO;
+import com.example.quizbin1.MainActivity;
 import com.example.quizbin1.utils.GlobalDataHolder;
 
 import java.util.List;
@@ -19,6 +22,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private LinearLayout resultContainer;
     private TextView tvScore, tvCorrect, tvWrong;
+    private Button btnBackToHome; // Thêm nút
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class ResultActivity extends AppCompatActivity {
         tvCorrect = findViewById(R.id.tvCorrect);
         tvWrong = findViewById(R.id.tvWrong);
         resultContainer = findViewById(R.id.resultContainer);
+        btnBackToHome = findViewById(R.id.btnBackToHome); // Gán ID
 
         int score = getIntent().getIntExtra("score", 0);
         int correct = getIntent().getIntExtra("correct", 0);
@@ -74,5 +79,14 @@ public class ResultActivity extends AppCompatActivity {
                 resultContainer.addView(tvOption);
             }
         }
+
+        // Xử lý nút quay về trang chủ
+        btnBackToHome.setOnClickListener(v -> {
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+            intent.putExtra("navigateTo", "home");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 }
