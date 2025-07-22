@@ -12,7 +12,9 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
+import com.example.quizbin1.utils.SessionManager;
 import com.example.quizbin1.utils.SharedPrefManager;
+
 
 import java.util.UUID;
 
@@ -71,8 +73,14 @@ public class LoginActivity extends AppCompatActivity {
                             role = "teacher";
                         }
 
+
+                        // Lưu vào SessionManager
+                        SessionManager sessionManager = SessionManager.getInstance(LoginActivity.this);
+                        sessionManager.saveUserInfo(userId, role);
+
                         // Lưu thông tin vào SharedPrefManager ngay sau login thành công
                         SharedPrefManager.getInstance(LoginActivity.this).saveLoginInfo(userId, role, username);
+
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);

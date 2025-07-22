@@ -39,6 +39,11 @@ public interface ApiService {
     Call<List<QuestionDTO>> getQuestionsBySemesterId(@Path("semesterId") UUID semesterId);
     @GET("api/Option/question/{questionId}")
     Call<List<OptionDTO>> getOptionsByQuestionId(@Path("questionId") UUID questionId);
+
+    @GET("/api/Subject/teacher/{teacherId}")
+    Call<List<SubjectDTO>> getSubjectsByTeacherId(@Path("teacherId") String teacherId);
+
+
     @GET("api/Subject/teacher/{teacherId}")
     Call<List<SubjectDTO>> getAllSubjectByTeacher(@Path("teacherId") String teacherId);
     @POST("api/Subject")
@@ -51,4 +56,5 @@ public interface ApiService {
     Call<QuestionDTO> createQuestion(@Body AddQuestionRequestDTO request);
     @POST("api/Option")
     Call<OptionDTO> createOption(@Body AddOptionRequestDTO request);
+
 }

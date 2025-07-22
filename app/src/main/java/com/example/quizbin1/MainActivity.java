@@ -8,13 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.quizbin1.ui.home.HomeFragment;
+import com.example.quizbin1.ui.home.LibraryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private String userId;
-    private String role ;
-    private String username ;
+    private String role;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_create) {
                 selectedFragment = new com.example.quizbin1.ui.subject.SubjectListFragment();
             } else if (id == R.id.nav_library) {
-                selectedFragment = new com.example.quizbin1.ui.home.LibraryFragment();
+                selectedFragment = LibraryFragment.newInstance(userId, role, username); // ✅ SỬA ĐÚNG Ở ĐÂY
             } else if (id == R.id.nav_premium) {
                 selectedFragment = new com.example.quizbin1.ui.home.PremiumFragment();
             }
