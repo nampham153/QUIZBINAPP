@@ -1,7 +1,6 @@
 package com.example.quizbin1.ui.semester;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +11,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.SemesterDTO;
-import com.example.quizbin1.ui.quiz.QuizDoingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.SemesterViewHolder> {
 
-    private final List<SemesterDTO> semesterList = new ArrayList<>();
     private final Context context;
+    private final String role;
+    private final OnSemesterClickListener listener;
+    private List<SemesterDTO> semesterList = new ArrayList<>();
 
-    public SemesterAdapter(Context context) {
-        this.context = context;
+    public interface OnSemesterClickListener {
+        void onSemesterClick(String semesterId);
     }
 
-    public void setSemesterList(List<SemesterDTO> semesterList) {
-        this.semesterList.clear();
-        this.semesterList.addAll(semesterList);
-        notifyDataSetChanged();
+    // Constructor dùng được cho cả Activity và Fragment
+    public SemesterAdapter(Context context, String role, OnSemesterClickListener listener) {
+        this.context = context;
+        this.role = role;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public SemesterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_semester, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_semester, parent, false);
         return new SemesterViewHolder(view);
     }
 
@@ -45,10 +46,9 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.Semest
         holder.tvSemesterName.setText(semester.getSemesterName());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, QuizDoingActivity.class);
-            intent.putExtra("semesterId", semester.getSemesterId().toString());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            if (listener != null && semester.getSemesterId() != null) {
+                listener.onSemesterClick(semester.getSemesterId().toString());
+            }
         });
     }
 
@@ -57,12 +57,17 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.Semest
         return semesterList.size();
     }
 
+    public void setSemesterList(List<SemesterDTO> list) {
+        this.semesterList = list;
+        notifyDataSetChanged();
+    }
+
     static class SemesterViewHolder extends RecyclerView.ViewHolder {
         TextView tvSemesterName;
 
         public SemesterViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvSemesterName = itemView.findViewById(R.id.tvSemesterName);
+            tvSemesterName = itemView.findViewById(R.id.tvSemesterName); // Ensure this ID matches your XML
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.quizbin1;
 
 import android.os.Bundle;
+import com.example.quizbin1.ui.subject.SubjectListFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 selectedFragment = HomeFragment.newInstance(userId, role, username);
             } else if (id == R.id.nav_create) {
-                selectedFragment = new com.example.quizbin1.ui.home.CreateFragment();
+                selectedFragment = new com.example.quizbin1.ui.subject.SubjectListFragment();
             } else if (id == R.id.nav_library) {
                 selectedFragment = LibraryFragment.newInstance(userId, role, username); // ✅ SỬA ĐÚNG Ở ĐÂY
             } else if (id == R.id.nav_premium) {
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             String navigateTo = getIntent().getStringExtra("navigateTo");
 
-            // Nếu không có intent, mặc định vào Home
             int defaultTabId = R.id.nav_home;
 
             if (navigateTo != null) {
