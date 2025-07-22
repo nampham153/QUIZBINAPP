@@ -11,5 +11,4 @@ public class AddOptionRequestDTO {
         this.isCorrect = isCorrect;
     }
 
-    // getters, setters
 }

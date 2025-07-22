@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             userRepo.login(request).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    // Trong onResponse khi login thành công
                     if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
@@ -72,15 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (roleId.equals(TEACHER_ROLE_ID)) {
                             role = "teacher";
                         }
-
-
-                        // Lưu vào SessionManager
                         SessionManager sessionManager = SessionManager.getInstance(LoginActivity.this);
                         sessionManager.saveUserInfo(userId, role);
-
-                        // Lưu thông tin vào SharedPrefManager ngay sau login thành công
                         SharedPrefManager.getInstance(LoginActivity.this).saveLoginInfo(userId, role, username);
-
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);

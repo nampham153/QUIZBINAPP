@@ -57,7 +57,7 @@ public class SubjectListFragment extends Fragment {
         adapter.setSubjectList(subjectList);
 
         adapter.setOnItemClickListener(subject -> {
-            // Khi ấn vào học phần thì chuyển sang SemesterListFragment kèm subjectId
+            //chuyển sang SemesterListFragment kèm subjectId
             SemesterListFragment semesterListFragment = new SemesterListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("subjectId", subject.getSubjectId().toString());
@@ -72,7 +72,7 @@ public class SubjectListFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        // Lấy userId từ SharedPrefManager
+        // lấy userId từ SharedPrefManager
         userIdStr = SharedPrefManager.getInstance(getContext()).getUserId();
 
         if (userIdStr == null || userIdStr.isEmpty()) {
@@ -84,7 +84,7 @@ public class SubjectListFragment extends Fragment {
         btnAddSubject.setOnClickListener(v -> {
             getParentFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, new CreateFragment()) // container là ID FrameLayout dùng chứa fragment
+                    .replace(R.id.fragment_container, new CreateFragment())
                     .addToBackStack(null)
                     .commit();
         });
@@ -96,8 +96,7 @@ public class SubjectListFragment extends Fragment {
         apiService = ApiClient.getApiService();
 
         try {
-            // Validate UUID nhưng vẫn giữ lại dạng String
-            UUID.fromString(teacherUserId); // chỉ để kiểm tra tính hợp lệ
+            UUID.fromString(teacherUserId);
         } catch (IllegalArgumentException e) {
             Toast.makeText(getContext(), "UserId không hợp lệ", Toast.LENGTH_SHORT).show();
             return;

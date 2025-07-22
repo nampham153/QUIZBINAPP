@@ -151,9 +151,7 @@ public class CreateQuestionFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     UUID createdQuestionIdUuid = response.body().getQuestionId();
                     String createdQuestionId = createdQuestionIdUuid.toString();
-
-                    // Gửi từng option một cách tuần tự
-                    createOptionSequentially(createdQuestionId, optionList, 0);
+                    createOptionSequentially(createdQuestionId, optionList, 0);                     // Gửi từng option lần lượt
                 } else {
                     Toast.makeText(getContext(), "Lỗi tạo câu hỏi: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -180,8 +178,7 @@ public class CreateQuestionFragment extends Fragment {
             @Override
             public void onResponse(Call<OptionDTO> call, Response<OptionDTO> response) {
                 if (response.isSuccessful()) {
-                    // Tiếp tục với option tiếp theo
-                    createOptionSequentially(questionId, options, index + 1);
+                    createOptionSequentially(questionId, options, index + 1);  // để tiếp tục với option tiếp theo
                 } else {
                     Log.e("API", "Lỗi tạo option: " + response.message());
                 }

@@ -56,9 +56,8 @@
                         android:contentDescription="Avatar" />
                 </LinearLayout>
 
-                <!-- Học phần -->
                 <TextView
-                    android:text="Học phần"
+                    android:text="Học phần của bạn"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp"
@@ -73,9 +72,8 @@
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="horizontal" />
 
-                <!-- Học phần tương tự -->
                 <TextView
-                    android:text="Các học phần tương tự học phần của bạn"
+                    android:text="Các họ kỳ mà bạn đã tạo"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
@@ -91,9 +89,8 @@
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="horizontal" />
 
-                <!-- Lớp học -->
                 <TextView
-                    android:text="Lớp học"
+                    android:text="Các câu hỏi hiện có cuả bạn"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"

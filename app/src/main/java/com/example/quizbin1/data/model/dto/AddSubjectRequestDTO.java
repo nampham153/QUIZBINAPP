@@ -17,7 +17,6 @@ public class AddSubjectRequestDTO {
         this.userId = userId;
     }
 
-    // Getters and setters
     public String getSubjectName() {
         return subjectName;
     }

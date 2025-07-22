@@ -9,5 +9,4 @@ public class AddQuestionRequestDTO {
         this.content = content;
     }
 
-    // getters, setters
 }

@@ -34,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         textViewLogin = findViewById(R.id.textViewLogin);
         userRepo = new UserRepository();
-
-        // Bắt sự kiện click vào "Đăng nhập"
         textViewLogin.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -52,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            UUID subjectId = UUID.fromString("28481261-dd77-4108-8817-4812cc951e93"); // Giữ nguyên ID mẫu
+            UUID subjectId = UUID.fromString("28481261-dd77-4108-8817-4812cc951e93");
             RegisterRequest request = new RegisterRequest(username, password, subjectId);
 
             userRepo.register(request).enqueue(new Callback<LoginResponse>() {

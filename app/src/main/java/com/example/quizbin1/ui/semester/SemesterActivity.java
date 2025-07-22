@@ -50,7 +50,6 @@ public class SemesterActivity extends AppCompatActivity {
 
         rvSemesters.setAdapter(adapter);
 
-        // Lấy subjectId từ intent
         subjectId = getIntent().getStringExtra("subjectId");
         Log.d("SemesterActivity", "subjectId nhận được: " + subjectId);
 
@@ -61,7 +60,6 @@ public class SemesterActivity extends AppCompatActivity {
             Toast.makeText(this, "Không tìm thấy subjectId", Toast.LENGTH_SHORT).show();
         }
 
-        // Xử lý nút quay lại
         Button btnBackToHome = findViewById(R.id.btnBackToHome);
         btnBackToHome.setOnClickListener(new View.OnClickListener() {
             @Override

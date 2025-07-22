@@ -42,10 +42,9 @@ public class HomeFragment extends Fragment {
     private String username;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
-    // Tạo factory method để truyền dữ liệu vào fragment
+    //truyền dữ liệu vào fragment
     public static HomeFragment newInstance(String userId, String role, String username) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -108,20 +107,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<SubjectDTO> allSubjects = response.body();
                     subjectList.clear();
-
-                    if ("student".equalsIgnoreCase(role)) {
-                        subjectList.addAll(allSubjects);
-                    } else if ("teacher".equalsIgnoreCase(role)) {
-                        UUID userId = UUID.fromString(userIdString);
-                        for (SubjectDTO subject : allSubjects) {
-                            if (subject.getUserId() != null && subject.getUserId().equals(userId)) {
-                                subjectList.add(subject);
-                            }
-                        }
-                    } else {
-                        subjectList.addAll(allSubjects);
-                    }
-
+                    subjectList.addAll(response.body());
                     adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {
