@@ -5,6 +5,18 @@
     android:layout_height="match_parent">
 
     <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back" />
+
+    <ImageButton
         android:id="@+id/btnAddSemester"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,4 +31,21 @@
         android:layout_height="match_parent"
         android:layout_below="@id/btnAddSemester"
         android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/semesterRecyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="14dp"
+        android:layout_toStartOf="@+id/btnAddSemester"
+        android:text="Danh sách các kì học"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
 </RelativeLayout>

@@ -44,7 +44,8 @@ public class CreateFragment extends Fragment {
         btnCreate = view.findViewById(R.id.btnCreateSubject);
 
         apiService = ApiClient.getApiService();
-
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
         btnCreate.setOnClickListener(v -> createSubject());
 
         return view;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -70,10 +71,9 @@ public class CreateQuestionFragment extends Fragment {
         if (getArguments() != null) {
             semesterId = getArguments().getString("semesterId");
         }
-
-        // Thiết lập listener cho các radio button
         setupRadioButtonListeners();
-
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
         btnCreateQuestion.setOnClickListener(v -> createQuestionWithOptions());
     }
 

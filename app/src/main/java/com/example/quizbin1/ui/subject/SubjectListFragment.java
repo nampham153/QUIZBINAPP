@@ -88,7 +88,6 @@ public class SubjectListFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
         return view;
     }
 

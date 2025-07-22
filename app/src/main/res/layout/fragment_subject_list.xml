@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Nút tạo học phần -->
     <ImageButton
         android:id="@+id/btnAddSubject"
         android:layout_width="wrap_content"
@@ -13,12 +12,29 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_add" />
 
-    <!-- RecyclerView hiển thị danh sách học phần -->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjectRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:padding="8dp"/>
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="17dp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="1dp"
+        android:layout_toStartOf="@+id/btnAddSubject"
+        android:text="Danh sách học phần đã tạo của bạn"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>
