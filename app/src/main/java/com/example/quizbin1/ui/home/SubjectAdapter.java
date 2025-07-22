@@ -50,6 +50,11 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             }
         });
     }
+    public void filterList(List<SubjectDTO> filteredList) {
+        this.subjects = filteredList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {

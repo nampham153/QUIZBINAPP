@@ -2,10 +2,13 @@ package com.example.quizbin1.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,10 +43,8 @@ public class LibraryFragment extends Fragment {
     private String role;
     private String username;
 
-    public LibraryFragment() {
-    }
+    public LibraryFragment() {}
 
-    //  truyền dữ liệu vào Fragment
     public static LibraryFragment newInstance(String userId, String role, String username) {
         LibraryFragment fragment = new LibraryFragment();
         Bundle args = new Bundle();
@@ -71,7 +72,6 @@ public class LibraryFragment extends Fragment {
             Log.e("LibraryFragment", "getArguments() == null");
         }
 
-        // Ánh xạ UI
         recyclerView = view.findViewById(R.id.recyclerSubjects);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -79,6 +79,7 @@ public class LibraryFragment extends Fragment {
         adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
+        // Avatar chuyển đến trang cài đặt
         ImageView imgAvatar = view.findViewById(R.id.imgAvatar);
         imgAvatar.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SettingsActivity.class);
@@ -88,7 +89,17 @@ public class LibraryFragment extends Fragment {
             startActivity(intent);
         });
 
-        // Kiểm tra dữ liệu trước khi gọi API
+        // Tìm kiếm
+        EditText edtSearch = view.findViewById(R.id.edtSearch);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterSubjects(s.toString());
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        // Load dữ liệu nếu hợp lệ
         if (userIdString == null || role == null) {
             Toast.makeText(getContext(), "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
         } else {
@@ -125,6 +136,7 @@ public class LibraryFragment extends Fragment {
                         subjectList.addAll(allSubjects);
                     }
 
+                    adapter.setSubjectList(subjectList);
                     adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {
@@ -141,5 +153,15 @@ public class LibraryFragment extends Fragment {
                 Log.e("API_ERROR", t.getMessage(), t);
             }
         });
+    }
+
+    private void filterSubjects(String keyword) {
+        List<SubjectDTO> filteredList = new ArrayList<>();
+        for (SubjectDTO subject : subjectList) {
+            if (subject.getSubjectName().toLowerCase().contains(keyword.toLowerCase())) {
+                filteredList.add(subject);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 }

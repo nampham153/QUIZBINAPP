@@ -1,13 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/premiumLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:background="@android:color/white"
+    android:padding="16dp">
+
 
     <TextView
-        android:text="Tạo học phần"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:id="@+id/tvPremiumTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:text="PREMIUM"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Tính năng 1 -->
+    <TextView
+        android:id="@+id/tvPremiumDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Nâng cấp để mở khoá toàn bộ tính năng"
+        android:textColor="#444"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPremiumTitle" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemExpert"
+        android:layout_width="368dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPremiumDesc">
+
+        <ImageView
+            android:id="@+id/iconExpert"
+            android:layout_width="85dp"
+            android:layout_height="73dp"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleExpert"
+            android:layout_width="264dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="12dp"
+            android:text="Lời giải chuyên gia"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/iconExpert"
+            app:layout_constraintTop_toTopOf="@id/iconExpert" />
+
+        <TextView
+            android:id="@+id/descExpert"
+            android:layout_width="274dp"
+            android:layout_height="43dp"
+            android:text="Hàng triệu lời giải từng bước, được kiểm tra kỹ lưỡng."
+            android:textColor="#666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/titleExpert"
+            app:layout_constraintTop_toBottomOf="@id/titleExpert" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Tính năng 2 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemNoAds"
+        android:layout_width="365dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemExpert">
+
+        <ImageView
+            android:id="@+id/iconNoAds"
+            android:layout_width="85dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_no_ads"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleNoAds"
+            android:layout_width="267dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:text="Không quảng cáo"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/iconNoAds"
+            app:layout_constraintTop_toTopOf="@id/iconNoAds" />
+
+        <TextView
+            android:id="@+id/descNoAds"
+            android:layout_width="263dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:text="Trải nghiệm liền mạch, không bị gián đoạn."
+            android:textColor="#666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/titleNoAds"
+            app:layout_constraintTop_toBottomOf="@id/titleNoAds" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Tính năng 3 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemSmartReview"
+        android:layout_width="360dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemNoAds">
+
+        <ImageView
+            android:id="@+id/iconSmartReview"
+            android:layout_width="79dp"
+            android:layout_height="73dp"
+            android:src="@drawable/ic_review"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleSmartReview"
+            android:layout_width="270dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="12dp"
+            android:text="Ôn tập thông minh"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/iconSmartReview"
+            app:layout_constraintTop_toTopOf="@id/iconSmartReview" />
+
+        <TextView
+            android:id="@+id/descSmartReview"
+            android:layout_width="267dp"
+            android:layout_height="39dp"
+            android:text="Gợi ý câu hỏi cần ôn tập, tập trung vào điểm yếu."
+            android:textColor="#666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/iconSmartReview"
+            app:layout_constraintTop_toBottomOf="@+id/titleSmartReview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="313dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="196dp"
+        android:text="Coming soon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

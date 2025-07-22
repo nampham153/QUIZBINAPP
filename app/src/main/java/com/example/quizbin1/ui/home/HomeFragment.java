@@ -2,10 +2,13 @@ package com.example.quizbin1.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,7 +27,6 @@ import com.example.quizbin1.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,16 +37,15 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private SubjectAdapter adapter;
     private List<SubjectDTO> subjectList = new ArrayList<>();
+    private List<SubjectDTO> fullSubjectList = new ArrayList<>();
     private ApiService apiService;
 
     private String userIdString;
     private String role;
     private String username;
 
-    public HomeFragment() {
-    }
+    public HomeFragment() {}
 
-    //truyền dữ liệu vào fragment
     public static HomeFragment newInstance(String userId, String role, String username) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -68,6 +69,17 @@ public class HomeFragment extends Fragment {
         adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
+        EditText edtSearch = view.findViewById(R.id.edtSearch);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterSubjects(s.toString());
+            }
+        });
+
         ImageView imgAvatar = view.findViewById(R.id.imgAvatar);
         imgAvatar.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SettingsActivity.class);
@@ -76,8 +88,8 @@ public class HomeFragment extends Fragment {
             intent.putExtra("username", username);
             startActivity(intent);
         });
+
         adapter.setOnItemClickListener(subject -> {
-            // Ví dụ chuyển sang Activity Semester, truyền subjectId
             Intent intent = new Intent(getContext(), SemesterActivity.class);
             intent.putExtra("subjectId", subject.getSubjectId().toString());
             startActivity(intent);
@@ -93,21 +105,23 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getContext(), "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
         } else {
             apiService = ApiClient.getClient().create(ApiService.class);
-            loadSubjects(role);
+            loadSubjects();
         }
 
         return view;
     }
 
-    private void loadSubjects(String role) {
+    private void loadSubjects() {
         Call<List<SubjectDTO>> call = apiService.getAllSubjects();
         call.enqueue(new Callback<List<SubjectDTO>>() {
             @Override
             public void onResponse(Call<List<SubjectDTO>> call, Response<List<SubjectDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<SubjectDTO> allSubjects = response.body();
+                    fullSubjectList.clear();
+                    fullSubjectList.addAll(response.body());
+
                     subjectList.clear();
-                    subjectList.addAll(response.body());
+                    subjectList.addAll(fullSubjectList);
                     adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {
@@ -124,5 +138,17 @@ public class HomeFragment extends Fragment {
                 Log.e("API_ERROR", t.getMessage(), t);
             }
         });
+    }
+
+    private void filterSubjects(String query) {
+        List<SubjectDTO> filteredList = new ArrayList<>();
+        for (SubjectDTO subject : fullSubjectList) {
+            if (subject.getSubjectName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(subject);
+            }
+        }
+        subjectList.clear();
+        subjectList.addAll(filteredList);
+        adapter.notifyDataSetChanged();
     }
 }

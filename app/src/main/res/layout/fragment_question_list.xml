@@ -5,20 +5,50 @@
     android:layout_height="match_parent">
 
     <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back" />
+
+    <ImageButton
         android:id="@+id/btnAddQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
-        android:src="@android:drawable/ic_input_add"
-        android:contentDescription="Thêm câu hỏi" />
+        android:contentDescription="Thêm câu hỏi"
+        android:src="@android:drawable/ic_input_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnAddQuestion"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="20dp"
         android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="269dp"
+        android:layout_height="61dp"
+        android:layout_alignTop="@+id/btnAddQuestion"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        android:layout_toStartOf="@+id/btnAddQuestion"
+        android:text="Danh sách các câu hỏi"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>

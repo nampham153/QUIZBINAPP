@@ -96,6 +96,8 @@ public class SemesterListFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             });
+            ImageButton btnBack = view.findViewById(R.id.btnBack);
+            btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
         } else {
             btnAddSemester.setVisibility(View.GONE);
         }
