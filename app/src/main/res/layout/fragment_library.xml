@@ -106,6 +106,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false" />
+
+                <!-- Nút quay lại trang chủ -->
+                <Button
+                    android:id="@+id/btnBackToHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quay lại trang chủ"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:backgroundTint="#2196F3"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:padding="12dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

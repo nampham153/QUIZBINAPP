@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizbin1.MainActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
@@ -90,7 +92,20 @@ public class LibraryFragment extends Fragment {
             startActivity(intent);
         });
 
-        // Kiểm tra dữ liệu trước khi gọi API
+        // ✅ Xử lý nút Quay lại trang chủ
+        Button btnBackToHome = view.findViewById(R.id.btnBackToHome);
+        btnBackToHome.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), MainActivity.class);
+            intent.putExtra("userId", userIdString);
+            intent.putExtra("role", role);
+            intent.putExtra("username", username);
+            intent.putExtra("navigateTo", "home"); // <- tab cần quay về
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            requireActivity().finish();
+        });
+
+        // Gọi API nếu có dữ liệu
         if (userIdString == null || role == null) {
             Toast.makeText(getContext(), "Không tìm thấy userId hoặc role!", Toast.LENGTH_SHORT).show();
         } else {
