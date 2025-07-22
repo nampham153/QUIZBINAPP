@@ -60,7 +60,9 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         loadUserInformation();
-
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            finish();
+        });
         btnSave.setOnClickListener(v -> {
             String fullName = edtFullName.getText().toString().trim();
             String email = edtEmail.getText().toString().trim();
