@@ -61,15 +61,8 @@ public class SemesterActivity extends AppCompatActivity {
         }
 
         Button btnBackToHome = findViewById(R.id.btnBackToHome);
-        btnBackToHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SemesterActivity.this, MainActivity.class); // đổi thành HomeActivity nếu cần
-                intent.putExtra("navigateTo", "home");
-                startActivity(intent);
-                finish();
-            }
-        });
+        btnBackToHome.setOnClickListener(v -> finish());
+
     }
 
     private void loadSemesters(String subjectId) {

@@ -1,12 +1,15 @@
 package com.example.quizbin1.ui.result;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quizbin1.MainActivity;
 import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.OptionDTO;
 import com.example.quizbin1.data.model.dto.QuestionDTO;
@@ -19,7 +22,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private LinearLayout resultContainer;
     private TextView tvScore, tvCorrect, tvWrong;
-
+    private     Button btnBackToHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,17 @@ public class ResultActivity extends AppCompatActivity {
 
         List<QuestionDTO> questions = GlobalDataHolder.questionList;
         List<UUID> selectedOptionIds = GlobalDataHolder.selectedOptionIds;
+        Button btnBack = findViewById(R.id.btnBackToHome);
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+            intent.putExtra("navigateTo", "home");
+            intent.putExtra("userId", getIntent().getStringExtra("userId"));
+            intent.putExtra("role", getIntent().getStringExtra("role"));
+            intent.putExtra("username", getIntent().getStringExtra("username"));
+            startActivity(intent);
+            finish();
+        });
+
 
         for (int i = 0; i < questions.size(); i++) {
             QuestionDTO question = questions.get(i);
