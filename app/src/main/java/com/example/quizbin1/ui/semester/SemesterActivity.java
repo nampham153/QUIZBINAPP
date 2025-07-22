@@ -16,6 +16,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
 import com.example.quizbin1.data.model.dto.SemesterDTO;
+import com.example.quizbin1.ui.quiz.QuizDoingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,18 @@ public class SemesterActivity extends AppCompatActivity {
 
         rvSemesters = findViewById(R.id.rvSemesters);
         rvSemesters.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SemesterAdapter(this);
+        adapter = new SemesterAdapter(this, "student", semesterId -> {
+            // Mở activity làm bài thi khi là học sinh
+            Intent intent = new Intent(SemesterActivity.this, QuizDoingActivity.class);
+            intent.putExtra("semesterId", semesterId);
+            startActivity(intent);
+        });
+
         rvSemesters.setAdapter(adapter);
 
+
+        subjectId = getIntent().getStringExtra("subjectId");
+        Log.d("SemesterActivity", "subjectId nhận được: " + subjectId);
         if (subjectId != null) {
             apiService = ApiClient.getClient().create(ApiService.class);
             loadSemesters(subjectId);

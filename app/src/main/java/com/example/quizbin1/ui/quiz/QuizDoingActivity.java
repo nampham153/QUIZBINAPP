@@ -97,7 +97,7 @@ public class QuizDoingActivity extends AppCompatActivity {
             int wrong = total - correct;
             int score = correct * 10;
 
-            // Truyền dữ liệu sang ResultActivity
+            // đẩy dữ liệu sang ResultActivity
             GlobalDataHolder.questionList = questionList;
             GlobalDataHolder.optionMap = optionMap;
             GlobalDataHolder.selectedOptionIds = selectedOptionIds;

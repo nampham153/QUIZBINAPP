@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:orientation="vertical"
-    android:background="@drawable/item_background">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtSubjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="Tên học phần" />
+        android:text="Subject Name"
+        android:textSize="16sp" />
 </LinearLayout>

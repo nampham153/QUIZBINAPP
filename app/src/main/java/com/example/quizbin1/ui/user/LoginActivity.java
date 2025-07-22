@@ -13,6 +13,8 @@ import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
 import com.example.quizbin1.utils.SessionManager;
+import com.example.quizbin1.utils.SharedPrefManager;
+
 
 import java.util.UUID;
 
@@ -69,10 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (roleId.equals(TEACHER_ROLE_ID)) {
                             role = "teacher";
                         }
-
-                        // Lưu vào SessionManager
                         SessionManager sessionManager = SessionManager.getInstance(LoginActivity.this);
                         sessionManager.saveUserInfo(userId, role);
+                        SharedPrefManager.getInstance(LoginActivity.this).saveLoginInfo(userId, role, username);
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);
@@ -80,9 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
+
                 }
 
                 @Override

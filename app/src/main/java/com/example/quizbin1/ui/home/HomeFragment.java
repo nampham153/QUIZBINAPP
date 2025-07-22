@@ -19,6 +19,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.api.ApiClient;
 import com.example.quizbin1.data.api.ApiService;
 import com.example.quizbin1.data.model.dto.SubjectDTO;
+import com.example.quizbin1.ui.semester.SemesterActivity;
 import com.example.quizbin1.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
@@ -41,10 +42,9 @@ public class HomeFragment extends Fragment {
     private String username;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
-    // Tạo factory method để truyền dữ liệu vào fragment
+    //truyền dữ liệu vào fragment
     public static HomeFragment newInstance(String userId, String role, String username) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new SubjectAdapter();
-        adapter.setContext(getContext());
         adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
@@ -75,6 +74,12 @@ public class HomeFragment extends Fragment {
             intent.putExtra("userId", userIdString);
             intent.putExtra("role", role);
             intent.putExtra("username", username);
+            startActivity(intent);
+        });
+        adapter.setOnItemClickListener(subject -> {
+            // Ví dụ chuyển sang Activity Semester, truyền subjectId
+            Intent intent = new Intent(getContext(), SemesterActivity.class);
+            intent.putExtra("subjectId", subject.getSubjectId().toString());
             startActivity(intent);
         });
 
@@ -102,20 +107,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<SubjectDTO> allSubjects = response.body();
                     subjectList.clear();
-
-                    if ("student".equalsIgnoreCase(role)) {
-                        subjectList.addAll(allSubjects);
-                    } else if ("teacher".equalsIgnoreCase(role)) {
-                        UUID userId = UUID.fromString(userIdString);
-                        for (SubjectDTO subject : allSubjects) {
-                            if (subject.getUserId() != null && subject.getUserId().equals(userId)) {
-                                subjectList.add(subject);
-                            }
-                        }
-                    } else {
-                        subjectList.addAll(allSubjects);
-                    }
-
+                    subjectList.addAll(response.body());
                     adapter.notifyDataSetChanged();
 
                     if (subjectList.isEmpty()) {

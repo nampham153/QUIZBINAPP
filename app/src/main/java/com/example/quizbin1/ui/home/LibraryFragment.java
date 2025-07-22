@@ -43,10 +43,9 @@ public class LibraryFragment extends Fragment {
     private String username;
 
     public LibraryFragment() {
-        // Required empty public constructor
     }
 
-    // Factory method để truyền dữ liệu vào Fragment
+    //  truyền dữ liệu vào Fragment
     public static LibraryFragment newInstance(String userId, String role, String username) {
         LibraryFragment fragment = new LibraryFragment();
         Bundle args = new Bundle();
@@ -79,7 +78,6 @@ public class LibraryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new SubjectAdapter();
-        adapter.setContext(getContext());
         adapter.setSubjectList(subjectList);
         recyclerView.setAdapter(adapter);
 
