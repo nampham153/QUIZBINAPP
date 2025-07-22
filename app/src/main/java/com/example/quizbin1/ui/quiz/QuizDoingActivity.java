@@ -17,6 +17,7 @@ import com.example.quizbin1.data.api.ApiService;
 import com.example.quizbin1.data.model.dto.OptionDTO;
 import com.example.quizbin1.data.model.dto.QuestionDTO;
 import com.example.quizbin1.ui.result.ResultActivity;
+import com.example.quizbin1.utils.GlobalDataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,6 +88,7 @@ public class QuizDoingActivity extends AppCompatActivity {
                 for (OptionDTO option : options) {
                     if (option.getOptionId().equals(selectedId) && option.isCorrect()) {
                         correct++;
+                        break;
                     }
                 }
             }
@@ -95,12 +97,17 @@ public class QuizDoingActivity extends AppCompatActivity {
             int wrong = total - correct;
             int score = correct * 10;
 
+            // Truyền dữ liệu sang ResultActivity
+            GlobalDataHolder.questionList = questionList;
+            GlobalDataHolder.optionMap = optionMap;
+            GlobalDataHolder.selectedOptionIds = selectedOptionIds;
+
             Intent intent = new Intent(QuizDoingActivity.this, ResultActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("correct", correct);
             intent.putExtra("wrong", wrong);
             startActivity(intent);
-            finish(); // đóng màn hình quiz sau khi nộp
+            finish();
         });
     }
 

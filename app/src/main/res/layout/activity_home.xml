@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <!-- Nội dung cuộn được -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
@@ -22,7 +21,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp"
+                android:divider="?android:attr/dividerHorizontal"
+                android:showDividers="middle">
 
                 <!-- Tìm kiếm và Avatar -->
                 <LinearLayout
@@ -32,27 +34,30 @@
                     android:gravity="center_vertical"
                     android:layout_marginBottom="16dp">
 
-                    <EditText
-                        android:id="@+id/edtSearch"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Tìm kiếm"
-                        android:background="@drawable/search_background"
-                        android:drawableStart="@drawable/ic_search"
-                        android:drawablePadding="8dp"
-                        android:paddingHorizontal="16dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        app:startIconDrawable="@drawable/ic_search"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense">
 
-                    <ImageView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:hint="Tìm kiếm"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imgAvatar"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="12dp"
                         android:src="@drawable/avatar_placeholder"
                         android:scaleType="centerCrop"
-                        android:background="@drawable/avatar_circle_bg"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                         android:contentDescription="Avatar" />
                 </LinearLayout>
 
@@ -60,7 +65,9 @@
                 <TextView
                     android:text="Học phần"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:textColor="@color/sectionTitle"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -69,16 +76,20 @@
                     android:id="@+id/recyclerSubjects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/sectionBackground"
+                    android:padding="8dp"
+                    android:clipToPadding="false"
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="horizontal" />
 
                 <!-- Học phần tương tự -->
                 <TextView
-                    android:text="Các học phần tương tự học phần của bạn"
+                    android:text="Các học phần tương tự"
                     android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/sectionTitle"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -87,6 +98,9 @@
                     android:id="@+id/recyclerSimilarSubjects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/sectionBackground"
+                    android:padding="8dp"
+                    android:clipToPadding="false"
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="horizontal" />
@@ -95,8 +109,9 @@
                 <TextView
                     android:text="Lớp học"
                     android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/sectionTitle"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -105,11 +120,12 @@
                     android:id="@+id/recyclerClasses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/sectionBackground"
+                    android:padding="8dp"
                     android:nestedScrollingEnabled="false" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <!-- Thanh điều hướng dưới -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="0dp"

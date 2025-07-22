@@ -12,6 +12,7 @@ import com.example.quizbin1.R;
 import com.example.quizbin1.data.model.dto.LoginRequest;
 import com.example.quizbin1.data.model.dto.LoginResponse;
 import com.example.quizbin1.repository.UserRepository;
+import com.example.quizbin1.utils.SessionManager;
 
 import java.util.UUID;
 
@@ -59,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                         String userId = response.body().getUserId().toString();
                         UUID roleId = response.body().getRoleId();
 
-                        // Thay bằng UUID đúng của role sinh viên và giáo viên
                         UUID STUDENT_ROLE_ID = UUID.fromString("28481261-DD77-4108-8817-4812CC951E93");
                         UUID TEACHER_ROLE_ID = UUID.fromString("025449DC-4C28-4886-EB96-08DDBEA2650D");
 
@@ -69,6 +69,10 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (roleId.equals(TEACHER_ROLE_ID)) {
                             role = "teacher";
                         }
+
+                        // Lưu vào SessionManager
+                        SessionManager sessionManager = SessionManager.getInstance(LoginActivity.this);
+                        sessionManager.saveUserInfo(userId, role);
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("userId", userId);
