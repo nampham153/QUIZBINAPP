@@ -9,7 +9,15 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:titleTextColor="@android:color/white" />
-
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

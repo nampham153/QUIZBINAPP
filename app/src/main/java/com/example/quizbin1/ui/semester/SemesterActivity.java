@@ -74,16 +74,7 @@ public class SemesterActivity extends AppCompatActivity {
         }
 
         Button btnBackToHome = findViewById(R.id.btnBackToHome);
-        btnBackToHome.setOnClickListener(v -> {
-            Toast.makeText(this, "Quay lại trang chủ", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(SemesterActivity.this, MainActivity.class);
-            intent.putExtra("userId", userId);
-            intent.putExtra("role", role);
-            intent.putExtra("username", username);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        });
+        btnBackToHome.setOnClickListener(v -> finish());
     }
 
 

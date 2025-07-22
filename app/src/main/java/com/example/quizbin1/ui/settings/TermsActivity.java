@@ -13,7 +13,9 @@ public class TermsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms);
-
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            finish();
+        });
         TextView tvTermsContent = findViewById(R.id.tvTermsContent);
         tvTermsContent.setText(getString(R.string.terms_text));
     }

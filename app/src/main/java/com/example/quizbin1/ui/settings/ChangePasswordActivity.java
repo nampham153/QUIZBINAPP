@@ -43,6 +43,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
             finish();
             return;
         }
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            finish();
+        });
 
         btnChangePassword.setOnClickListener(v -> {
             String oldPass = edtOldPassword.getText().toString().trim();

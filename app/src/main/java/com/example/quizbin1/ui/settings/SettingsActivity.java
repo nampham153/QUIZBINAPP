@@ -53,6 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
             sharedPreferences.edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
             updateDarkMode(isChecked);
         });
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            finish();
+        });
 
         // Sự kiện nút chức năng
         tvEditProfile.setOnClickListener(v -> {
