@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <!-- Nội dung cuộn được -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
@@ -24,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Tìm kiếm và Avatar -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,39 +71,6 @@
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="horizontal" />
 
-                <!-- Học phần tương tự -->
-                <TextView
-                    android:text="Các học phần tương tự học phần của bạn"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerSimilarSubjects"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
-                    android:scrollbars="horizontal" />
-
-                <!-- Lớp học -->
-                <TextView
-                    android:text="Lớp học"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerClasses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

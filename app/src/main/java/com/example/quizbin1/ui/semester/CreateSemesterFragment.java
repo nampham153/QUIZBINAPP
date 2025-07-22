@@ -27,8 +27,6 @@ public class CreateSemesterFragment extends Fragment {
     private EditText edtSemesterName;
     private Button btnCreateSemester;
     private ApiService apiService;
-
-    // Nếu bạn có SubjectId truyền vào thì dùng biến này
     private String subjectIdStr;
 
     public CreateSemesterFragment() {}
@@ -84,7 +82,6 @@ public class CreateSemesterFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Semester created successfully!", Toast.LENGTH_SHORT).show();
-                    // Quay về màn trước (SubjectListFragment hoặc SemesterListFragment)
                     if (getParentFragmentManager().getBackStackEntryCount() > 0) {
                         getParentFragmentManager().popBackStack();
                     }

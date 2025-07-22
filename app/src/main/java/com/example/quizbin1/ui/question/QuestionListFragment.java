@@ -48,14 +48,15 @@ public class QuestionListFragment extends Fragment {
         apiService = ApiClient.getApiService();
         ImageButton btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
 
-// Ẩn nút nếu user không phải teacher (giống như semester)
+        // kiểm tra role cho phép tạo
+        // truyền semesterId sang tạo câu hỏi
         String role = SharedPrefManager.getInstance(getContext()).getRole();
         if ("teacher".equalsIgnoreCase(role)) {
             btnAddQuestion.setVisibility(View.VISIBLE);
             btnAddQuestion.setOnClickListener(v -> {
                 CreateQuestionFragment createQuestionFragment = new CreateQuestionFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("semesterId", semesterId); // truyền semesterId sang tạo câu hỏi
+                bundle.putString("semesterId", semesterId);
                 createQuestionFragment.setArguments(bundle);
 
                 getParentFragmentManager().beginTransaction()
@@ -66,7 +67,7 @@ public class QuestionListFragment extends Fragment {
         } else {
             btnAddQuestion.setVisibility(View.GONE);
         }
-        // Lấy semesterId truyền từ ngoài vào (từ fragment trước hoặc activity)
+        // lấy semesterId truyền từ ngoài vào
         semesterId = getArguments() != null ? getArguments().getString("semesterId") : null;
 
         if (semesterId == null || semesterId.isEmpty()) {

@@ -46,7 +46,7 @@ public class ResultActivity extends AppCompatActivity {
             UUID selectedId = selectedOptionIds.get(i);
             List<OptionDTO> options = GlobalDataHolder.optionMap.get(question.getQuestionId());
 
-            // Hiển thị nội dung câu hỏi
+            // dùng để hiển thị nội dung câu hỏi
             TextView tvQuestion = new TextView(this);
             tvQuestion.setText("Câu " + (i + 1) + ": " + question.getContent());
             tvQuestion.setTextSize(16);
@@ -58,17 +58,16 @@ public class ResultActivity extends AppCompatActivity {
                 TextView tvOption = new TextView(this);
                 tvOption.setText("• " + option.getContent());
 
-                // Xử lý tô màu theo logic:
                 if (option.getOptionId().equals(selectedId)) {
                     if (option.isCorrect()) {
-                        tvOption.setTextColor(Color.GREEN); // chọn đúng
+                        tvOption.setTextColor(Color.GREEN);
                     } else {
-                        tvOption.setTextColor(Color.RED); // chọn sai
+                        tvOption.setTextColor(Color.RED);
                     }
                 } else if (option.isCorrect()) {
-                    tvOption.setTextColor(Color.GREEN); // đáp án đúng (kể cả không chọn)
+                    tvOption.setTextColor(Color.GREEN);
                 } else {
-                    tvOption.setTextColor(Color.BLACK); // các đáp án còn lại
+                    tvOption.setTextColor(Color.BLACK);
                 }
 
                 tvOption.setPadding(30, 4, 0, 4);

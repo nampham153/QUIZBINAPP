@@ -62,7 +62,7 @@ public class CreateFragment extends Fragment {
             return;
         }
 
-        // Lấy userId từ SharedPrefManager (đã lưu UUID string)
+        // lấy userId từ SharedPrefManager
         String userIdStr = SharedPrefManager.getInstance(getContext()).getUserId();
         UUID userId;
         try {

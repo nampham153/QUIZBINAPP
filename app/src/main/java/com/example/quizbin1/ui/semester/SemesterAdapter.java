@@ -25,8 +25,6 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.Semest
     public interface OnSemesterClickListener {
         void onSemesterClick(String semesterId);
     }
-
-    // Constructor dùng được cho cả Activity và Fragment
     public SemesterAdapter(Context context, String role, OnSemesterClickListener listener) {
         this.context = context;
         this.role = role;
@@ -67,7 +65,7 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.Semest
 
         public SemesterViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvSemesterName = itemView.findViewById(R.id.tvSemesterName); // Ensure this ID matches your XML
+            tvSemesterName = itemView.findViewById(R.id.tvSemesterName);
         }
     }
 }
