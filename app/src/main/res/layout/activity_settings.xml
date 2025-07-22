@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +28,7 @@
             android:contentDescription="App Icon"
             android:src="@drawable/logo" />
 
-        <!-- Đổi mật khẩu -->
+        <!-- Đổi thông tin -->
         <TextView
             android:id="@+id/tvEditProfile"
             android:layout_width="match_parent"
@@ -53,7 +52,7 @@
             android:focusable="true"
             android:layout_marginTop="8dp" />
 
-        <!-- Chế độ sáng/tối dùng ConstraintLayout -->
+        <!-- Chế độ sáng/tối -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,9 +69,7 @@
                 android:layout_width="219dp"
                 android:layout_height="36dp"
                 android:text="Chế độ sáng/tối"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="-2dp"
-                tools:layout_editor_absoluteY="-4dp" />
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switchDarkMode"
@@ -80,12 +77,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="299dp"
-                tools:layout_editor_absoluteY="-1dp" />
+                android:layout_height="wrap_content" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Điều khoản trang web -->
+        <!-- Điều khoản -->
         <TextView
             android:id="@+id/tvTerms"
             android:layout_width="match_parent"
@@ -98,7 +93,7 @@
             android:focusable="true"
             android:layout_marginTop="8dp" />
 
-        <!-- Logout -->
+        <!-- Đăng xuất -->
         <TextView
             android:id="@+id/tvLogout"
             android:layout_width="match_parent"
@@ -111,5 +106,18 @@
             android:text="Đăng xuất"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="18sp" />
+
+        <!-- ✅ Nút quay lại trang chủ -->
+        <Button
+            android:id="@+id/btnBackToHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quay lại trang chủ"
+            android:textAllCaps="false"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#2196F3"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 </ScrollView>
